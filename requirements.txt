@@ -1,0 +1,2 @@
+xtlsapi==2.0.0
+requests==2.30.0
