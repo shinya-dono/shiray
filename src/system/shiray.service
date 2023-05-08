@@ -1,0 +1,15 @@
+[Unit]
+Description=ShiRay Service
+Documentation=https://github.com/shinya-dono/shiray
+After=network.target nss-lookup.target
+
+[Service]
+User=nobody
+ExecStart=python3 /code/main.py
+Restart=on-failure
+RestartPreventExitStatus=23
+LimitNPROC=10000
+LimitNOFILE=1000000
+
+[Install]
+WantedBy=multi-user.target
