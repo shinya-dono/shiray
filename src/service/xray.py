@@ -23,6 +23,9 @@ class Xray:
         for user in users_to_be_removed:
             self.controller.remove_client(self.inbound, user.email)
 
+        print(f"added {len(users_to_be_added)} users")
+        print(f"removed {len(users_to_be_removed)} users")
+
     def get_stats(self):
         users = []
         for user in self.users:

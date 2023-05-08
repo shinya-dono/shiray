@@ -1,17 +1,17 @@
 import json
-
-import var_dump
+from time import sleep
 
 from api.new_v2board import NewV2board
 from config import Config
 import subprocess
 
+from service.core import Core
 from service.xray import Xray
 
 
 def main() -> None:
     config = Config()
-
+    print("starting")
     inbounds = config.get('xray.inbounds')
 
     connections: list[Xray] = []
@@ -25,19 +25,19 @@ def main() -> None:
     with open('xray.json', 'w') as file:
         json.dump(json_config, file)
 
-    subprocess.Popen(
-        [
-            './bin/xray',
-            '-c',
-            'xray.json'
-        ]
-    )
+    # subprocess.Popen(["/code/bin/xray", "run", "-config", "/code/bin/xray.json"])
 
-    for connection in connections:
-        users = NewV2board(connection.inbound).get_users()
+    Core().start()
+    print("started")
 
-        var_dump.var_dump(NewV2board(connection.inbound).get_users())
-        connection.apply_update(users)
+    while True:
+
+        for connection in connections:
+            users = NewV2board(connection.inbound).get_users()
+
+            connection.apply_update(users)
+
+        sleep(60)
 
 
 if __name__ == '__main__':

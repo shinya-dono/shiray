@@ -1,12 +1,12 @@
 FROM python:3.10
 
+ENV PYTHONUNBUFFERED 1
 WORKDIR /code
-COPY src/ /code
 
-COPY /src/service/* /etc/systemd/system/
+COPY src/requirements.txt /code/
 
-ADD * .
+RUN apt update && apt install vim curl -y
+
 RUN pip install -r /code/requirements.txt
 
-CMD ["systemctl", "restart", "xray.service"]
-CMD ["systemctl", "restart", "shiray.service"]
+CMD ["python3","/code/main.py"]
