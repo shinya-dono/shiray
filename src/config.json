@@ -2,7 +2,8 @@
   "usages": {
     "min": 1024,
     "disable_upload": false,
-    "disable_download": false
+    "disable_download": false,
+    "interval": 60
   },
   "xray": {
     "api": {

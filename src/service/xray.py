@@ -14,8 +14,10 @@ class Xray:
 
     def apply_update(self, users: list[User]):
 
-        users_to_be_added = [user for user in users if user.uuid not in self.users]
-        users_to_be_removed = [user for user in self.users if user not in users]
+        users_to_be_added = [user for user in users if user.uuid not in [x.uuid for x in self.users]]
+        users_to_be_removed = [user for user in self.users if user.uuid not in [x.uuid for x in users]]
+
+        self.users = [user for user in self.users if user not in [x.uuid for x in users_to_be_removed]] + users_to_be_added
 
         for user in users_to_be_added:
             self.controller.add_client(self.inbound, user.uuid, user.email, self.config.get(f"xray.inbounds.{self.inbound}.protocol"))

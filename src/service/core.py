@@ -70,7 +70,7 @@ class Core:
                 log = output.strip('\n')
                 self.logger.debug(log)
 
-                if log.endswith('started'):
+                if log.endswith('xray.json'):
                     self.logger.info(log)
                     self.started = True
                     break

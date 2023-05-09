@@ -33,11 +33,14 @@ def main() -> None:
     while True:
 
         for connection in connections:
-            users = NewV2board(connection.inbound).get_users()
+            api = NewV2board(connection.inbound)
 
+            api.report_usage(connection.get_stats())
+
+            users = api.get_users()
             connection.apply_update(users)
 
-        sleep(60)
+        sleep(config.get('usages.interval'))
 
 
 if __name__ == '__main__':

@@ -6,8 +6,6 @@ WORKDIR /code
 
 COPY src/ /code/
 
-RUN apt update && apt install vim curl -y
-
 RUN pip install -r /code/requirements.txt
 RUN chmod -R 777 /code
 
