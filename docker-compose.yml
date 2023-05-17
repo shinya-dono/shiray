@@ -16,14 +16,13 @@ services:
   nginx:
     image: nginx
     restart: on-failure
-    working_dir: nginx
     ports:
       - "443:443" # global
       - "80:80" # global
     volumes:
       - ${SSL_PATH}:/ssl
-      - ./logs:/logs
-      - .:/etc/nginx/templates
+      - ./logs/nginx:/logs
+      - ./nginx/nginx.template:/etc/nginx/templates/nginx.template
     environment:
       SERVER_NAME: "trial.shinya.space"
     networks:
