@@ -11,6 +11,7 @@ services:
     volumes:
       - ./xray:/etc/xray
       - ${SSL_PATH}:/ssl
+      - ./logs:/logs
 
   shiray:
     build:
