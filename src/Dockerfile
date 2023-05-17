@@ -6,7 +6,7 @@ WORKDIR /code
 
 COPY . /code/
 
-RUN pip install -r /code/requirements.txt
+RUN pip install -r /code/requirements.txt -i https://pypi.iranrepo.ir/simple
 RUN chmod -R 777 /code
 
 #EXPOSE 80
