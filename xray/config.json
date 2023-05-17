@@ -38,7 +38,7 @@
       },
       {
         "type": "field",
-        "outboundTag": "out",
+        "outboundTag": "proxy",
         "network": "tcp"
       }
     ]
