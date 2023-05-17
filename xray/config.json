@@ -67,7 +67,7 @@
     },
     {
       "tag": "inbound",
-      "port": 443,
+      "port": 1000,
       "protocol": "trojan",
       "settings": {
         "udp": false,
