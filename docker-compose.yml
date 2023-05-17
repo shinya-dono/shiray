@@ -22,7 +22,7 @@ services:
     volumes:
       - ${SSL_PATH}:/ssl
       - ./logs/nginx:/logs
-      - ./nginx/nginx.template:/etc/nginx/templates/nginx.template
+      - ./nginx/default.conf.template:/etc/nginx/templates/default.conf.template
     environment:
       SERVER_NAME: "trial.shinya.space"
     networks:
