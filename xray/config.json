@@ -81,24 +81,7 @@
       },
       "streamSettings": {
         "network": "ws",
-        "tlsSettings": {
-          "serverName": "trial.shinya.space",
-          "rejectUnknownSni": false,
-          "allowInsecure": true,
-          "alpn": [
-            "h2",
-            "http/1.1"
-          ],
-          "minVersion": "1.2",
-          "maxVersion": "1.3",
-          "certificates": [
-            {
-              "certificateFile": "/ssl/cert.crt",
-              "keyFile": "/ssl/private.key"
-            }
-          ]
-        },
-        "security": "tls",
+        "security": "none",
         "wsSettings": {
           "path": "/thisIsJustTesting"
         }
