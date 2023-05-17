@@ -32,8 +32,8 @@ class Xray:
         users = []
         for user in self.users:
 
-            download = (1 - self.config.get('usages.disable_download')) * self.controller.get_client_download_traffic(user.email, True)
-            upload = (1 - self.config.get('usages.disable_upload')) * self.controller.get_client_upload_traffic(user.email, True)
+            download = (1 - self.config.get('usages.disable_download')) * (self.controller.get_client_download_traffic(user.email, True) or 0)
+            upload = (1 - self.config.get('usages.disable_upload')) * (self.controller.get_client_upload_traffic(user.email, True) or 0)
 
             if (upload + download) > self.config.get("usages.min"):
                 user.set_usage(download, upload)

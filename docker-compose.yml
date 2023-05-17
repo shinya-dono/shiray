@@ -22,7 +22,7 @@ services:
     volumes:
       - ${SSL_PATH}:/ssl
       - ./logs/nginx:/logs
-      - ./nginx:/etc/nginx/sites-enabled
+      - ./nginx:/etc/nginx/templates
     networks:
       public:
 
