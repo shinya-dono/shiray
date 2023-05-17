@@ -1,5 +1,7 @@
 from time import sleep
 
+import requests
+
 from api.new_v2board import NewV2board
 from config import Config
 
@@ -16,11 +18,13 @@ def main() -> None:
 
     while True:
         api = NewV2board(connection.inbound)
+        try:
+            api.report_usage(connection.get_stats())
 
-        api.report_usage(connection.get_stats())
-
-        users = api.get_users()
-        connection.apply_update(users)
+            users = api.get_users()
+            connection.apply_update(users)
+        except requests.exceptions.ConnectTimeout:
+            pass
 
         sleep(config.get('usages.interval'))
 
