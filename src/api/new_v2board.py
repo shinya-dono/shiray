@@ -8,7 +8,7 @@ from .objects.user import User
 
 class NewV2board(ApiContract):
     def get_users(self):
-        url = self.config.get(f"xray.inbounds.{self.inbound}.urls.fetch")
+        url = self.config.get(f"xray.inbound.urls.fetch")
         req = requests.post(url)
 
         data = []
@@ -26,7 +26,7 @@ class NewV2board(ApiContract):
         for usage in usages:
             data[f"{usage.id}"] = [usage.upload, usage.download]
 
-        url = self.config.get(f"xray.inbounds.{self.inbound}.urls.push")
+        url = self.config.get(f"xray.inbound.urls.push")
 
         req = requests.post(url, data=json.dumps(data), allow_redirects=True,
                             headers={"content-type": "application/json"})

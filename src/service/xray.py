@@ -20,7 +20,7 @@ class Xray:
         self.users = [user for user in self.users if user not in [x.uuid for x in users_to_be_removed]] + users_to_be_added
 
         for user in users_to_be_added:
-            self.controller.add_client(self.inbound, user.uuid, user.email, self.config.get(f"xray.inbounds.{self.inbound}.protocol"))
+            self.controller.add_client(self.inbound, user.uuid, user.email, self.config.get(f"xray.inbound.protocol"))
 
         for user in users_to_be_removed:
             self.controller.remove_client(self.inbound, user.email)

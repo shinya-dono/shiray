@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  xray:
+    image: teddysun/xray
+    ports:
+      - "443:443"
+      - "80:80"
+      - "62789:62789"
+    restart: always
+    volumes:
+      - ./xray:/etc/xray
+
+  shiray:
+    build:
+      context: src
+      dockerfile: Dockerfile
+    depends_on:
+      - xray

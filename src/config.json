@@ -7,117 +7,18 @@
   },
   "xray": {
     "api": {
-      "address": "127.0.0.1",
+      "address": "xray",
       "port": 62789
     },
-    "inbounds": {
-      "test": {
-        "protocol": "vmess",
-        "flow": "none",
-        "cipher": "idk",
-        "zone": "panel-zone-id",
-        "urls": {
-          "push": "https://shinya.ir/api/v1/server/UniProxy/push?node_id=23&node_type=v2ray&token=AAH2vdGhsVAIQXEyPdSgkZgDGLJLUWPPNXo",
-          "fetch": "https://shinya.ir/api/v1/server/UniProxy/user?node_id=23&node_type=v2ray&token=AAH2vdGhsVAIQXEyPdSgkZgDGLJLUWPPNXo"
-        },
-        "config": {
-          "tag": "test",
-          "port": 80,
-          "protocol": "vmess",
-          "settings": {
-            "udp": false,
-            "clients": [],
-            "allowTransparent": false
-          },
-          "streamSettings": {
-            "network": "ws",
-            "wsSettings": {
-              "path": "/"
-            }
-          }
-        }
+    "inbound": {
+      "protocol": "trojan",
+      "flow": "none",
+      "cipher": "idk",
+      "zone": "panel-zone-id",
+      "urls": {
+        "push": "https://shinya.ir/api/v1/server/UniProxy/push?node_id=1&node_type=trojan&token=AAH2vdGhsVAIQXEyPdSgkZgDGLJLUWPPNXo",
+        "fetch": "https://shinya.ir/api/v1/server/UniProxy/user?node_id=1&node_type=trojan&token=AAH2vdGhsVAIQXEyPdSgkZgDGLJLUWPPNXo"
       }
-    },
-    "default": {
-      "log": {
-        "access": "./logs/access.log",
-        "error": "./logs/error.log",
-        "loglevel": "warning"
-      },
-      "api": {
-        "services": [
-          "HandlerService",
-          "LoggerService",
-          "StatsService"
-        ],
-        "tag": "api"
-      },
-      "dns": {},
-      "routing": {
-        "rules": [
-          {
-            "inboundTag": [
-              "api"
-            ],
-            "outboundTag": "api",
-            "type": "field"
-          },
-          {
-            "ip": [
-              "geoip:private"
-            ],
-            "outboundTag": "blocked",
-            "type": "field"
-          },
-          {
-            "outboundTag": "blocked",
-            "protocol": [
-              "bittorrent"
-            ],
-            "type": "field"
-          }
-        ]
-      },
-      "policy": {
-        "levels": {
-          "0": {
-            "handshake": 10,
-            "connIdle": 100,
-            "uplinkOnly": 2,
-            "downlinkOnly": 3,
-            "statsUserUplink": true,
-            "statsUserDownlink": true,
-            "bufferSize": 10240
-          }
-        },
-        "system": {
-          "statsInboundDownlink": true,
-          "statsInboundUplink": true
-        }
-      },
-      "inbounds": [
-        {
-          "listen": "127.0.0.1",
-          "port": 62789,
-          "protocol": "dokodemo-door",
-          "settings": {
-            "address": "127.0.0.1"
-          },
-          "tag": "api"
-        }
-      ],
-      "outbounds": [
-        {
-          "protocol": "freedom",
-          "settings": {}
-        },
-        {
-          "protocol": "blackhole",
-          "settings": {},
-          "tag": "blocked"
-        }
-      ],
-      "stats": {}
     }
   }
 }
