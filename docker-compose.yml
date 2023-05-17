@@ -4,13 +4,15 @@ services:
   xray:
     image: teddysun/xray
     ports:
-      - "62789:62789"
-      - "1000:1000"
+#      - "62789:62789" not exposed
+      - "443:443" # exposed
     restart: always
     volumes:
       - ./xray:/etc/xray
       - ./logs/xray:/logs
       - ${SSL_PATH}:/ssl
+    networks:
+      internal:
 
   shiray:
     build:
@@ -18,3 +20,8 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - xray
+    networks:
+      internal:
+
+networks:
+  internal:

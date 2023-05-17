@@ -35,6 +35,11 @@
           "bittorrent"
         ],
         "type": "field"
+      },
+      {
+        "type": "field",
+        "outboundTag": "out",
+        "network": "tcp"
       }
     ]
   },
@@ -83,7 +88,7 @@
         "network": "ws",
         "security": "tls",
         "tlsSettings": {
-          "serverName": "trial.shinya.space",
+          "serverName": "trial.shinya.site",
           "rejectUnknownSni": false,
           "allowInsecure": true,
           "alpn": [
@@ -114,6 +119,61 @@
       "protocol": "blackhole",
       "settings": {},
       "tag": "blocked"
+    },
+    {
+      "tag": "proxy",
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "139.144.151.245",
+            "port": 25857,
+            "users": [
+              {
+                "id": "a2ddf2f3-1f3e-48f7-f8c2-5ed4045f0730",
+                "alterId": 0,
+                "email": "t@t.tt",
+                "security": "auto"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "tcpSettings": {
+          "header": {
+            "type": "http",
+            "request": {
+              "version": "1.1",
+              "method": "GET",
+              "path": [
+                "/0f147f59-b552-4e0a-d2fc-b206bab4ac83"
+              ],
+              "headers": {
+                "Host": [
+                  "${d_h_host}"
+                ],
+                "User-Agent": [
+                  "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36",
+                  "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46"
+                ],
+                "Accept-Encoding": [
+                  "gzip, deflate"
+                ],
+                "Connection": [
+                  "keep-alive"
+                ],
+                "Pragma": "no-cache"
+              }
+            }
+          }
+        }
+      },
+      "mux": {
+        "enabled": false,
+        "concurrency": -1
+      }
     }
   ],
   "stats": {}
