@@ -23,6 +23,8 @@ services:
       - ${SSL_PATH}:/ssl
       - ./logs/nginx:/logs
       - ./nginx:/etc/nginx/templates
+    environment:
+      SERVER_NAME: "trial.shinya.space"
     networks:
       public:
 
