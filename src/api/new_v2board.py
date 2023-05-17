@@ -17,7 +17,10 @@ class NewV2board(ApiContract):
             return data
 
         for user in req.json()['users']:
-            data.append(User(user['id'], f"{user['uuid']}@mail.com", user['uuid']))
+            try:
+                data.append(User(user['id'], f"{user['uuid']}@mail.com", user['uuid']))
+            except:
+                continue
 
         return data
 
