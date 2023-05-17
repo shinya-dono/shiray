@@ -4,14 +4,27 @@ services:
   xray:
     image: teddysun/xray
     ports:
-      - "443:443" # global
-      - "80:80" # global
-      - "62789:62789" # api, should only be accessible locally
+      - "62789:62789"
+      - "1000:1000"
     restart: always
     volumes:
       - ./xray:/etc/xray
+      - ./logs/xray:/logs
+    networks:
+      services:
+
+  nginx:
+    image: nginx
+    restart: on-failure
+    ports:
+      - "443:443" # global
+      - "80:80" # global
+    volumes:
       - ${SSL_PATH}:/ssl
-      - ./logs:/logs
+      - ./logs/nginx:/logs
+      - ./nginx:/etc/nginx/sites-enabled
+    networks:
+      public:
 
   shiray:
     build:
@@ -19,3 +32,13 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - xray
+      - nginx
+    networks:
+      services:
+
+networks:
+  services:
+    external: false
+
+  public:
+    external: true
