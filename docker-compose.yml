@@ -26,6 +26,7 @@ services:
     environment:
       SERVER_NAME: "trial.shinya.space"
     networks:
+      services:
       public:
 
   shiray:
