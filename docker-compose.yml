@@ -10,24 +10,6 @@ services:
     volumes:
       - ./xray:/etc/xray
       - ./logs/xray:/logs
-    networks:
-      services:
-
-  nginx:
-    image: nginx
-    restart: on-failure
-    ports:
-      - "443:443" # global
-      - "80:80" # global
-    volumes:
-      - ${SSL_PATH}:/ssl
-      - ./logs/nginx:/logs
-      - ./nginx/default.conf.template:/etc/nginx/templates/default.conf.template
-    environment:
-      SERVER_NAME: "trial.shinya.space"
-    networks:
-      services:
-      public:
 
   shiray:
     build:
@@ -35,13 +17,3 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - xray
-      - nginx
-    networks:
-      services:
-
-networks:
-  services:
-    external: false
-
-  public:
-    external: true
