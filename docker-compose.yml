@@ -10,6 +10,7 @@ services:
     volumes:
       - ./xray:/etc/xray
       - ./logs/xray:/logs
+      - ${SSL_PATH}:/ssl
 
   shiray:
     build:
