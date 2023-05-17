@@ -4,7 +4,7 @@ USER root
 ENV PYTHONUNBUFFERED 1
 WORKDIR /code
 
-COPY src/ /code/
+COPY . /code/
 
 RUN pip install -r /code/requirements.txt
 RUN chmod -R 777 /code

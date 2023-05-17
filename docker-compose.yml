@@ -4,9 +4,9 @@ services:
   xray:
     image: teddysun/xray
     ports:
-      - "443:443"
-      - "80:80"
-      - "62789:62789"
+      - "443:443" # global
+      - "80:80" # global
+      - "62789:62789" # api, should only be accessible locally
     restart: always
     volumes:
       - ./xray:/etc/xray
