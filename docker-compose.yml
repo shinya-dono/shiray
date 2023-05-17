@@ -18,6 +18,7 @@ services:
     build:
       context: src
       dockerfile: Dockerfile
+    restart: always
     depends_on:
       - xray
     networks:
