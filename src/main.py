@@ -1,6 +1,7 @@
 from time import sleep
 
 import requests
+import xtlsapi
 
 from api.new_v2board import NewV2board
 from config import Config
@@ -24,6 +25,8 @@ def main() -> None:
             users = api.get_users()
             connection.apply_update(users)
         except requests.exceptions.ConnectTimeout:
+            pass
+        except xtlsapi.exceptions.email_already_exists.EmailAlreadyExists:
             pass
 
         sleep(config.get('usages.interval'))
