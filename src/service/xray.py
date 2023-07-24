@@ -2,6 +2,7 @@ from xtlsapi import XrayClient, utils, exceptions
 
 from api.objects.user import User
 from config import Config
+import xtlsapi
 
 
 class Xray:
@@ -19,11 +20,15 @@ class Xray:
 
         self.users = [user for user in self.users if user not in [x.uuid for x in users_to_be_removed]] + users_to_be_added
 
-        for user in users_to_be_added:
-            self.controller.add_client(self.inbound, user.uuid, user.email, self.config.get(f"xray.inbound.protocol"))
+        try:
+            for user in users_to_be_added:
+                self.controller.add_client(self.inbound, user.uuid, user.email, self.config.get(f"protocol"))
 
-        for user in users_to_be_removed:
-            self.controller.remove_client(self.inbound, user.email)
+            for user in users_to_be_removed:
+                self.controller.remove_client(self.inbound, user.email)
+
+        except xtlsapi.exceptions.email_already_exists.EmailAlreadyExists:
+            pass
 
         print(f"added {len(users_to_be_added)} users")
         print(f"removed {len(users_to_be_removed)} users")

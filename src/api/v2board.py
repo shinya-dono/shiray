@@ -6,44 +6,47 @@ import requests
 from .objects.user import User
 
 
-class NewV2board(ApiContract):
+class V2board(ApiContract):
     def get_users(self):
-        url = self.get_url("fetch")
+        url = self.get_url("user")
+
         req = requests.post(url)
 
         data = []
 
-        if 'users' not in req.json():
+        if 'data' not in req.json():
             return data
 
-        for user in req.json()['users']:
+        for user in req.json()['data']:
             try:
-                data.append(User(user['id'], f"{user['uuid']}@mail.com", user['uuid']))
+                data.append(User(user['id'], user['v2ray_user']['email'], user['v2ray_user']['uuid']))
             except:
                 continue
 
         return data
 
-    def get_url(self, node_type="push"):
+    def get_url(self, node_type="submit"):
         protocol = self.config.get("protocol")
         host = self.config.get("server.host")
         token = self.config.get("server.token")
         node_id = self.config.get("server.id")
 
-        path = "/api/v1/server/UniProxy/"
+        path = "/api/v1/server/Deepbwork/"
 
-        if protocol == "vless" or protocol == "vmess":
-            protocol = "v2ray"
+        if protocol == "trojan":
+            path = "/api/v1/server/TrojanTidalab/"
+        if protocol == "shadowsocks":
+            path = "/api/v1/server/ShadowsocksTidalab/"
 
-        url = f"https://{host}{path}{node_type}?token={token}&node_id={node_id}&node_type={protocol}"
+        url = f"https://{host}{path}{node_type}?token={token}&node_id={node_id}"
         return url
 
     def report_usage(self, usages: list[User]) -> bool:
-        data = {}
+        data = []
         for usage in usages:
-            data[f"{usage.id}"] = [usage.upload, usage.download]
+            data.append({"u": usage.upload, "d": usage.download, "user_id": usage.id})
 
-        url = self.get_url("push")
+        url = self.get_url("submit")
 
         req = requests.post(url, data=json.dumps(data), allow_redirects=True,
                             headers={"content-type": "application/json"})

@@ -4,7 +4,7 @@ import json
 class Config:
 
     def __init__(self):
-        with open("config.json", "r") as file:
+        with open("../config.json", "r") as file:
             self.data: dict = json.load(file)
 
     def get(self, config_key: str = "", default=None):
