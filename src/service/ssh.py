@@ -23,7 +23,7 @@ class SshController:
         return self.exec_and_read(["ps", "aux"], capture_output=True, text=True).stdout.split("\n")
 
     def remove_client(self, username):
-        return self.executor(f"killall -u {username} && userdel {username}")
+        return self.executor(f"userdel {username}")
 
 
 class SSH:
