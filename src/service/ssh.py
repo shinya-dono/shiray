@@ -20,7 +20,7 @@ class SshController:
         )
 
     def get_connections(self):
-        return self.exec_and_read(["lsof", "-i", ":22", "-n"], capture_output=True, text=True).stdout.split("\n")
+        return self.exec_and_read(["ps", "aux"], capture_output=True, text=True).stdout.split("\n")
 
     def remove_client(self, username):
         return self.executor(f"killall -u {username} && userdel {username}")
@@ -56,7 +56,7 @@ class SSH:
     def get_stats(self):
         list_of_connections = self.controller.get_connections()
 
-        ssh_users = [int(re.search("user(\d+)", x).group(1)) for x in list_of_connections if re.search("user(\d+)", x)]
+        ssh_users = set([int(re.search("user(\d+)", x).group(1)) for x in list_of_connections if re.search("user(\d+)", x)])
         users = []
 
         for user in self.users:

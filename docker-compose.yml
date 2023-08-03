@@ -21,6 +21,8 @@ services:
       context: src
       dockerfile: Dockerfile
     restart: always
+    volumes:
+      - ./config.json:/code/config.json
     ports:
       - "25857:22"
     depends_on:
