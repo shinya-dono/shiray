@@ -2,6 +2,7 @@ version: "3"
 
 services:
   xray:
+    container_name: xray
     image: teddysun/xray
     ports:
 #      - "62789:62789" not exposed
@@ -15,6 +16,7 @@ services:
       internal:
 
   shiray:
+    container_name: shiray
     build:
       context: src
       dockerfile: Dockerfile
