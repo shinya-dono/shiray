@@ -22,7 +22,12 @@ ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
 EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D"]
+#CMD ["/usr/sbin/sshd", "-D"]
 
 #EXPOSE 80
-CMD ["python3","/code/main.py"]
+#CMD ["python3","/code/main.py"]
+
+#COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /start.sh
+
+CMD ["/start.sh"]
