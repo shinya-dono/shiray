@@ -28,6 +28,6 @@ EXPOSE 22
 #CMD ["python3","/code/main.py"]
 
 #COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /start.sh
+RUN chmod +x ./start.sh
 
-CMD ["/start.sh"]
+CMD ["./start.sh"]
