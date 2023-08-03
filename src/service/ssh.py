@@ -1,5 +1,7 @@
 import crypt
 import os
+import re
+import subprocess
 
 from api.objects.user import User
 from config import Config
@@ -9,14 +11,19 @@ class SshController:
 
     def __init__(self):
         self.executor = os.system
+        self.exec_and_read = subprocess.run
 
     def add_client(self, name, username, password):
-        encPass = crypt.crypt(password, "22")
+        enc_pass = crypt.crypt(password, "22")
         return self.executor(
-            "useradd -p " + encPass + " -s " + "/bin/true " + "-d " + "/home/" + username + " -m " + " -c \"" + name + "\" " + username)
+            f"useradd -p {enc_pass} -s /bin/true -d {username} -m -c \"{name}\" username"
+        )
+
+    def get_connections(self):
+        return self.exec_and_read(["lsof", "-i", ":22", "-n"], capture_output=True, text=True).stdout.split("\n")
 
     def remove_client(self, username):
-        return self.executor("userdel " + username)
+        return self.executor(f"killall -u {username} && userdel {username}")
 
 
 class SSH:
@@ -31,7 +38,8 @@ class SSH:
         users_to_be_added = [user for user in users if user.uuid not in [x.uuid for x in self.users]]
         users_to_be_removed = [user for user in self.users if user.uuid not in [x.uuid for x in users]]
 
-        self.users = [user for user in self.users if user not in [x.uuid for x in users_to_be_removed]] + users_to_be_added
+        self.users = [user for user in self.users if
+                      user not in [x.uuid for x in users_to_be_removed]] + users_to_be_added
 
         try:
             for user in users_to_be_added:
@@ -46,5 +54,14 @@ class SSH:
         print(f"removed {len(users_to_be_removed)} users")
 
     def get_stats(self):
+        list_of_connections = self.controller.get_connections()
+
+        ssh_users = [int(re.search("user(\d+)", x).group(1)) for x in list_of_connections if re.search("user(\d+)", x)]
         users = []
+
+        for user in self.users:
+            if user.id in ssh_users:
+                user.set_usage(1, 1)
+                users.append(user)
+
         return users
