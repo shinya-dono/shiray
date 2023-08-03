@@ -11,7 +11,7 @@ services:
     volumes:
       - ./xray:/etc/xray
       - ./logs/xray:/logs
-      - ${SSL_PATH}:/ssl
+      - ${SSL_PATH:-/ssl}:/ssl
     networks:
       internal:
 
