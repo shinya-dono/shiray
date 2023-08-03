@@ -16,7 +16,7 @@ class SshController:
     def add_client(self, name, username, password):
         enc_pass = crypt.crypt(password, "22")
         return self.executor(
-            f"useradd -p {enc_pass} -s /bin/true -d {username} -m -c \"{name}\" username"
+            f"useradd -p {enc_pass} -s /bin/true -c \"{name}\" username"
         )
 
     def get_connections(self):
