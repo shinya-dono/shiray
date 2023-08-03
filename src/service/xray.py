@@ -18,7 +18,8 @@ class Xray:
         users_to_be_added = [user for user in users if user.uuid not in [x.uuid for x in self.users]]
         users_to_be_removed = [user for user in self.users if user.uuid not in [x.uuid for x in users]]
 
-        self.users = [user for user in self.users if user not in [x.uuid for x in users_to_be_removed]] + users_to_be_added
+        self.users = [user for user in self.users if
+                      user not in [x.uuid for x in users_to_be_removed]] + users_to_be_added
 
         try:
             for user in users_to_be_added:
@@ -37,11 +38,15 @@ class Xray:
         users = []
         for user in self.users:
 
-            download = (1 - self.config.get('usages.disable_download')) * (self.controller.get_client_download_traffic(user.email, True) or 0)
-            upload = (1 - self.config.get('usages.disable_upload')) * (self.controller.get_client_upload_traffic(user.email, True) or 0)
+            download = (1 - self.config.get('usages.disable_download')) * (
+                        self.controller.get_client_download_traffic(user.email, True) or 0)
+            upload = (1 - self.config.get('usages.disable_upload')) * (
+                        self.controller.get_client_upload_traffic(user.email, True) or 0)
 
             if (upload + download) > self.config.get("usages.min"):
                 user.set_usage(download, upload)
                 users.append(user)
+
+        print(f"reported {len(users)} online user")
 
         return users

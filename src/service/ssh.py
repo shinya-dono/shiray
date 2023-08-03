@@ -64,4 +64,6 @@ class SSH:
                 user.set_usage(1, 1)
                 users.append(user)
 
+        print(f"reported {len(users)} online user")
+
         return users

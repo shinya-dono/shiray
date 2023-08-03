@@ -2,7 +2,7 @@ FROM python:3.10
 
 USER root
 ENV PYTHONUNBUFFERED 1
-RUN apt-get update && apt-get install -y openssh-server lsof
+RUN apt-get update && apt-get install -y openssh-server
 
 WORKDIR /code
 
