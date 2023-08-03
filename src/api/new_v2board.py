@@ -8,7 +8,7 @@ from .objects.user import User
 
 class NewV2board(ApiContract):
     def get_users(self):
-        url = self.get_url("fetch")
+        url = self.get_url("user")
         req = requests.post(url)
 
         data = []
