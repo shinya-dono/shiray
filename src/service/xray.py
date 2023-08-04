@@ -23,7 +23,15 @@ class Xray:
 
         try:
             for user in users_to_be_added:
-                self.controller.add_client(self.inbound, user.uuid, user.email, self.config.get(f"protocol"))
+                if self.config.get('xray.inbound.flow'):
+                    self.controller.add_client(
+                        self.inbound,
+                        user.uuid, user.email,
+                        self.config.get(f"protocol"),
+                        flow=self.config.get('xray.inbound.flow')
+                    )
+                else:
+                    self.controller.add_client(self.inbound, user.uuid, user.email, self.config.get(f"protocol"))
 
             for user in users_to_be_removed:
                 self.controller.remove_client(self.inbound, user.email)
@@ -39,9 +47,9 @@ class Xray:
         for user in self.users:
 
             download = (1 - self.config.get('usages.disable_download')) * (
-                        self.controller.get_client_download_traffic(user.email, True) or 0)
+                    self.controller.get_client_download_traffic(user.email, True) or 0)
             upload = (1 - self.config.get('usages.disable_upload')) * (
-                        self.controller.get_client_upload_traffic(user.email, True) or 0)
+                    self.controller.get_client_upload_traffic(user.email, True) or 0)
 
             if (upload + download) > self.config.get("usages.min"):
                 user.set_usage(download, upload)

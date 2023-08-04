@@ -12,7 +12,7 @@
       "port": 62789
     },
     "inbound": {
-      "flow": "flow=xtls-rprx-vision",
+      "flow": "xtls-rprx-vision",
       "cipher": "none",
       "zone": "panel-zone-id"
     }
