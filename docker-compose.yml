@@ -1,13 +1,13 @@
-version: "3"
+version: "3.8"
 
 services:
   xray:
+    deploy:
+      replicas: 1
     container_name: xray
     image: teddysun/xray
     ports:
-#      - "62789:62789" not exposed
-      - "443:443" # exposed
-      - "8443:8443" # exposed
+      - "8443:3000" # exposed
     restart: always
     volumes:
       - ./xray:/etc/xray

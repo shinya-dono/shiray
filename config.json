@@ -1,7 +1,7 @@
 {
-  "protocol": "trojan",
+  "protocol": "NODE_PROTOCOL",
   "usages": {
-    "min": 1024,
+    "min": 32,
     "disable_upload": false,
     "disable_download": false,
     "interval": 60
@@ -12,15 +12,15 @@
       "port": 62789
     },
     "inbound": {
-      "flow": "flow=xtls-rprx-vision",
-      "cipher": "none",
+      "flow": "NODE_FLOW",
+      "cipher": "NODE_CIPHER",
       "zone": "panel-zone-id"
     }
   },
   "server": {
-    "type": "v2board",
-    "host": "foxynet.pw",
-    "token": "folan",
-    "id": 189
+    "type": "PANEL_TYPE",
+    "host": "PANEL_HOST",
+    "token": "PANEL_TOKEN",
+    "id": "NODE_ID"
   }
 }

@@ -4,11 +4,20 @@
     "access": "/logs/access.log",
     "error": "/logs/error.log"
   },
+  "api": {
+    "tag": "api",
+    "services": [
+      "HandlerService",
+      "LoggerService",
+      "StatsService"
+    ]
+  },
   "inbounds": [
+
     {
       "tag": "inbound",
       "listen": "0.0.0.0",
-      "port": 8443,
+      "port": 3000,
       "protocol": "vless",
       "settings": {
         "clients": [],
@@ -44,6 +53,7 @@
         ]
       }
     }
+
   ],
   "outbounds": [
     {
